@@ -1,0 +1,19 @@
+import React from 'react';
+import { View, Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import ScreenHeader from '@/components/ScreenHeader/ScreenHeader';
+import { Colors } from '@/constants/Colors';
+import styles from './styles';
+
+const PaymentMethodsScreen = () => {
+  return (
+    <SafeAreaView style={styles.container}>
+      <ScreenHeader title="Payment Methods" />
+      <View style={styles.content}>
+        <Text style={styles.text}>This is Payment Methods Page</Text>
+      </View>
+    </SafeAreaView>
+  );
+};
+
+export default PaymentMethodsScreen;

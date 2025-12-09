@@ -1,0 +1,59 @@
+{
+    "expo": {
+      "name": "InvestWizz",
+      "slug": "investwizz",
+      "version": "1.0.0",
+      "orientation": "portrait",
+      "icon": "./assets/images/icon.png",
+      "scheme": "investwizz",
+      "userInterfaceStyle": "automatic",
+      "splash": {
+        "image": "./assets/images/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#2563EB"
+      },
+      "ios": {
+        "supportsTablet": true,
+        "bundleIdentifier": "com.investwizz.app"
+      },
+      "android": {
+        "adaptiveIcon": {
+          "foregroundImage": "./assets/images/adaptive-icon.png",
+          "backgroundColor": "#2563EB"
+        },
+        "package": "com.investwizz.app",
+        "permissions": [
+          "android.permission.ACCESS_FINE_LOCATION",
+          "android.permission.ACCESS_COARSE_LOCATION"
+        ]
+      },
+      "web": {
+        "bundler": "metro",
+        "output": "static",
+        "favicon": "./assets/images/favicon.png"
+      },
+      "plugins": [
+        "expo-router",
+        [
+          "expo-notifications",
+          {
+            "icon": "./assets/images/notification-icon.png",
+            "color": "#ffffff"
+            
+          }
+        ],
+        [
+          "expo-location",
+          {
+            "locationAlwaysAndWhenInUsePermission": "Allow InvestWizz to use your location to provide personalized investment recommendations."
+          }
+        ]
+      ],
+      "experiments": {
+        "typedRoutes": true
+      },
+      "assetBundlePatterns": [
+        "assets/**/*"
+      ]
+    }
+  }

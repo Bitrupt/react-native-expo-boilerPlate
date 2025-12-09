@@ -1,0 +1,196 @@
+import { StyleSheet } from 'react-native';
+import { Colors } from '@/constants/Colors';
+import { wp, hp } from '@/hooks/screenPercentage';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.backgrounds.white,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: wp(6),
+    paddingTop: wp(6),
+    paddingBottom: wp(4),
+  },
+  headerTitle: {
+    fontSize: wp(6),
+    fontFamily: 'Montserrat_700Bold',
+    color: Colors.light.text,
+  },
+  editButton: {
+    padding: wp(1),
+  },
+  profileCard: {
+    marginHorizontal: wp(6),
+    marginBottom: wp(6),
+    padding: wp(6),
+    backgroundColor: Colors.common.white,
+    borderRadius: wp(4),
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 4,
+  },
+  avatarContainer: {
+    marginBottom: wp(4),
+  },
+  avatar: {
+    width: wp(20),
+    height: wp(20),
+    borderRadius: wp(10),
+    backgroundColor: Colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  avatarText: {
+    fontSize: wp(6),
+    fontFamily: 'Montserrat_700Bold',
+    color: Colors.common.white,
+  },
+  profileInfo: {
+    alignItems: 'center',
+  },
+  profileName: {
+    fontSize: wp(5.5),
+    fontFamily: 'Montserrat_600SemiBold',
+    color: Colors.light.text,
+    marginBottom: wp(1),
+  },
+  profileEmail: {
+    fontSize: wp(4),
+    fontFamily: 'Inter_400Regular',
+    color: Colors.light.textSecondary,
+    marginBottom: wp(1),
+  },
+  profileJoinDate: {
+    fontSize: wp(3.5),
+    fontFamily: 'Inter_400Regular',
+    color: Colors.light.textMuted,
+  },
+  summaryCard: {
+    marginHorizontal: wp(6),
+    marginBottom: wp(6),
+    padding: wp(6),
+    backgroundColor: Colors.common.white,
+    borderRadius: wp(4),
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  summaryTitle: {
+    fontSize: wp(4.5),
+    fontFamily: 'Montserrat_600SemiBold',
+    color: Colors.light.text,
+    marginBottom: wp(6),
+  },
+  summaryGrid: {
+    gap: wp(6),
+  },
+  summaryItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  summaryLabel: {
+    fontSize: wp(3.5),
+    fontFamily: 'Inter_500Medium',
+    color: Colors.light.textSecondary,
+  },
+  summaryValue: {
+    fontSize: wp(4),
+    fontFamily: 'Inter_600SemiBold',
+    color: Colors.light.text,
+  },
+  menuSection: {
+    marginHorizontal: wp(6),
+    marginBottom: wp(6),
+  },
+  menuSectionTitle: {
+    fontSize: wp(4.5),
+    fontFamily: 'Montserrat_600SemiBold',
+    color: Colors.light.text,
+    marginBottom: wp(4),
+  },
+  menuContainer: {
+    backgroundColor: Colors.common.white,
+    borderRadius: wp(4),
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 2,
+    overflow: 'hidden',
+  },
+  menuItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: wp(6),
+    paddingVertical: wp(4),
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.light.borderLight,
+  },
+  menuItemLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  menuItemIcon: {
+    width: wp(10),
+    height: wp(10),
+    backgroundColor: Colors.light.backgroundSecondary,
+    borderRadius: wp(3),
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: wp(4),
+  },
+  menuItemText: {
+    fontSize: wp(4),
+    fontFamily: 'Inter_500Medium',
+    color: Colors.light.text,
+    flex: 1,
+  },
+  versionContainer: {
+    alignItems: 'center',
+    marginVertical: wp(6),
+  },
+  versionText: {
+    fontSize: wp(3.5),
+    fontFamily: 'Inter_400Regular',
+    color: Colors.light.textMuted,
+  },
+  logoutContainer: {
+    paddingHorizontal: wp(6),
+    paddingBottom: wp(12),
+  },
+  logoutButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: wp(2),
+    paddingVertical: wp(4),
+    backgroundColor: Colors.common.white,
+    borderRadius: wp(3),
+    borderWidth: 1,
+    borderColor: Colors.error + '30',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  logoutText: {
+    fontSize: wp(4),
+    fontFamily: 'Inter_600SemiBold',
+    color: Colors.error,
+  },
+});
+
+export default styles;
