@@ -39,6 +39,8 @@ export default function TabsLayout() {
           ),
         }}
       />
+      <Tabs.Screen name="home/styles" options={{ href: null }} />
+      <Tabs.Screen name="profile/styles" options={{ href: null }} />
     </Tabs>
   );
 }
