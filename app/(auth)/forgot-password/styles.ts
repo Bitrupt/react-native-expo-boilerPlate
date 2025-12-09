@@ -5,7 +5,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    gap: 16,
+    gap: 24,
   },
   header: {
     flexDirection: 'row',
@@ -22,7 +22,7 @@ export default StyleSheet.create({
   eyebrow: {
     fontFamily: Fonts.family.medium,
     fontSize: Fonts.sizes.sm,
-    letterSpacing: 0.5,
+    letterSpacing: 0.4,
     textTransform: 'uppercase',
   },
   title: {
@@ -30,36 +30,34 @@ export default StyleSheet.create({
     fontSize: Fonts.sizes.xl,
     marginTop: 6,
   },
-  subtitle: {
-    fontFamily: Fonts.family.regular,
-    fontSize: Fonts.sizes.md,
-  },
   card: {
     borderWidth: 1,
-    borderRadius: 16,
     padding: 16,
-    gap: 10,
+    borderRadius: 16,
+    gap: 12,
   },
-  cardTitle: {
-    fontFamily: Fonts.family.semiBold,
-    fontSize: Fonts.sizes.lg,
+  label: {
+    fontFamily: Fonts.family.medium,
+    fontSize: Fonts.sizes.sm,
   },
-  cardBody: {
+  input: {
+    borderWidth: 1,
+    borderRadius: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
     fontFamily: Fonts.family.regular,
     fontSize: Fonts.sizes.md,
   },
-  row: {
-    flexDirection: 'row',
-    gap: 8,
-    flexWrap: 'wrap',
-  },
-  chip: {
-    minHeight: 44,
-    paddingHorizontal: 14,
-    alignSelf: 'flex-start',
-  },
-  toggleButton: {
+  cta: {
     marginTop: 8,
     alignSelf: 'flex-start',
+  },
+  link: {
+    fontFamily: Fonts.family.medium,
+    fontSize: Fonts.sizes.sm,
+  },
+  success: {
+    fontFamily: Fonts.family.medium,
+    fontSize: Fonts.sizes.sm,
   },
 });

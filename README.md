@@ -1,35 +1,88 @@
-# 📱 Project Setup and Running with Expo Go
+# Expo Boilerplate
 
-This guide will help you clone the repository, install dependencies, and run the project on **iOS** or **Android** using **Expo Go**.
+Minimal Expo Router starter focused on reusable theming, status bar control, and a lightweight Redux setup you can swap for any backend.
 
----
+## Quick start
+- Install deps: `npm install`
+- Run: `npm start` (or `npx expo start`)
+- Platform targets: `npm run android`, `npm run ios`, `npm run web`
 
-## 🚀 Steps to Run the Project
+## What’s included
+- Expo Router with auth flow (`app/(auth)/login`) and two tabs (`home`, `profile`)
+- Theme system with light/dark/system modes (`contexts/ThemeContext.tsx`)
+- Status bar controller and helpers (`contexts/StatusBarContext.tsx`, `hooks/useStatusBarColor.ts`)
+- Reusable UI: `CustomButton`, `ThemeToggle`, `StatusBarBackground`
+- Redux Toolkit with a mockable auth slice and an example slice
+- Typed absolute imports via `@` alias
 
-1️⃣ **Clone the repository**
+## Folder structure
+```
+app/
+  _layout.tsx           // root providers
+  (auth)/login/         // login screen (index + styles)
+  (tabs)/home/          // home tab (index + styles)
+  (tabs)/profile/       // profile tab (index + styles)
+components/
+  CustomButton/
+  ThemeToggle/
+  StatusBarBackground/
+constants/              // Colors, FontSizes
+contexts/               // Theme + StatusBar providers
+hooks/                  // useAuth, useStatusBarColor, responsive helpers
+redux/
+  features/
+    auth/               // auth slice
+    example/            // example slice
+  store/                // store setup + hooks
+types/                  // shared types
+```
 
-```bash
- git clone "repo link"
+## Branding (name & icon)
+- Update app name/slug/bundle IDs in `app.config.ts` (`APP_NAME`, `SLUG`, `BUNDLE_ID`).
+- Change the app icon by replacing `app.config.ts > icon` path (currently `./assets/images/icon.png`) with your image. Expo recommends a square 1024x1024 PNG.
+- Replace the splash and adaptive icons in the same file (`splash.image`, `android.adaptiveIcon.foregroundImage`).
 
+## Theming & colors
+- `contexts/ThemeContext.tsx` stores light/dark/system preference (persisted).
+- `getThemeColors(isDark)` returns the palette; `getStatusBarColor` picks bar colors.
+- Components read the active theme via `useTheme()`; keep new components theme-aware by calling `getThemeColors(isDark)`.
 
-2️⃣ Install dependencies
+## Status bar
+- Wrap screens with `useStatusBarColor({ screen: 'default' | 'surface' | 'primary' | 'transparent' })`.
+- `StatusBarBackground` mirrors the bar color into the safe area.
 
- npm install
+## Components
+- `CustomButton`: variants `primary | secondary | outline | ghost`; supports icons and loading.
+- `ThemeToggle`: taps to toggle theme; accepts `size` prop.
+- Keep new components in their own folder with `index.tsx` + `styles.ts`.
 
+## Routing patterns
+- Each screen lives in its own folder with `index.tsx` + `styles.ts`.
+- `(auth)` stack for unauthenticated routes; `(tabs)` for main app.
+- Update `app/(tabs)/_layout.tsx` to add/remove tabs.
 
-3️⃣ Start the project
+## State management
+- Store: `redux/store/store.ts` exposes `useAppDispatch` / `useAppSelector`.
+- Auth slice: `redux/features/auth/authSlice.ts` stores `user`, mock login, and persistence.
+- Example slice: `redux/features/example/exampleSlice.ts` shows async thunk + reducers.
 
- npm start
+### Create a new slice
+1) `mkdir -p redux/features/<name>` and add `<name>Slice.ts`.
+2) Define state, reducers, and async thunks with `createSlice` / `createAsyncThunk`.
+3) Add the reducer to `redux/store/store.ts`.
+4) Use it with `useAppDispatch` / `useAppSelector`.
 
+### Wiring real auth
+- Replace the mock login in `redux/features/auth/authSlice.ts` with your API call.
+- Populate `UserProfile` in `types/authTypes.ts` with your shape.
+- Call `login({...})` from UI; `logoutUser` clears persisted user.
 
-4️⃣ Switch to Expo Go mode
- If you’re in Development Build mode, press s in the terminal to switch to Expo Go mode.
- You’ll know you’re in Expo Go when you see: (switch to development build by pressing s)
+## Adding screens
+1) Create `app/(scope)/screen-name/index.tsx` and `styles.ts` in the same folder.
+2) Use `useStatusBarColor` and `useTheme` for consistent theming.
+3) Add a tab entry in `app/(tabs)/_layout.tsx` if it should appear in the tab bar.
 
-5️⃣ Launch the project on your device
- Press i to run on iOS
-
- Press a to run on Android
-
-
-
+## Scripts
+- `npm start` — launch Expo
+- `npm run android` / `npm run ios` / `npm run web`
+- `npm run lint` — lint via Expo config

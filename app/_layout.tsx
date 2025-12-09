@@ -1,118 +1,107 @@
-// app/_layout.tsx - iOS FIXED VERSION
-
-import { useColorScheme } from '@/hooks/useColorScheme';
-import { useAuth } from '@/hooks/useAuth';
-import { store } from '@/redux/store/store';
-import {
-  Inter_100Thin,
-  Inter_200ExtraLight,
-  Inter_300Light,
-  Inter_400Regular,
-  Inter_500Medium,
-  Inter_600SemiBold,
-  Inter_700Bold,
-  Inter_800ExtraBold,
-  Inter_900Black,
-} from '@expo-google-fonts/inter';
-import {
-  Montserrat_100Thin,
-  Montserrat_200ExtraLight,
-  Montserrat_300Light,
-  Montserrat_400Regular,
-  Montserrat_500Medium,
-  Montserrat_600SemiBold,
-  Montserrat_700Bold,
-  Montserrat_800ExtraBold,
-  Montserrat_900Black,
-} from '@expo-google-fonts/montserrat';
+import React, { useEffect } from 'react';
 import {
   DarkTheme,
   DefaultTheme,
-  ThemeProvider,
+  ThemeProvider as NavigationThemeProvider,
 } from '@react-navigation/native';
+import {
+  Outfit_300Light,
+  Outfit_400Regular,
+  Outfit_500Medium,
+  Outfit_600SemiBold,
+  Outfit_700Bold,
+} from '@expo-google-fonts/outfit';
 import { useFonts } from 'expo-font';
 import { Slot } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
-import { View, ActivityIndicator, Platform } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import 'react-native-reanimated';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
-import ToastManager from 'toastify-react-native';
-import { Colors } from '@/constants/Colors';
 
-function AuthInitializer() {
-  const { initializeAuth } = useAuth();
-  const [isInitialized, setIsInitialized] = useState(false);
+import StatusBarBackground from '@/components/StatusBarBackground';
+import { getThemeColors } from '@/constants/Colors';
+import { StatusBarProvider } from '@/contexts/StatusBarContext';
+import { ThemeProvider, useTheme } from '@/contexts/ThemeContext';
+import { useAuth } from '@/hooks/useAuth';
+import { store } from '@/redux/store/store';
+
+const AppShell = () => {
+  const { isDark } = useTheme();
+  const colors = getThemeColors(isDark);
+  const { initialized, initializeAuth } = useAuth();
 
   useEffect(() => {
-    if (!isInitialized) {
-      console.log('🚀 Initializing auth...');
-      initializeAuth();
-      setIsInitialized(true);
-    }
-  }, [isInitialized, initializeAuth]);
+    initializeAuth();
+  }, [initializeAuth]);
 
-  return (
-    <>
-      <Slot />
-      <StatusBar style="light" />
-    </>
-  );
-}
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    Montserrat_100Thin,
-    Montserrat_200ExtraLight,
-    Montserrat_300Light,
-    Montserrat_400Regular,
-    Montserrat_500Medium,
-    Montserrat_600SemiBold,
-    Montserrat_700Bold,
-    Montserrat_800ExtraBold,
-    Montserrat_900Black,
-    Inter_100Thin,
-    Inter_200ExtraLight,
-    Inter_300Light,
-    Inter_400Regular,
-    Inter_500Medium,
-    Inter_600SemiBold,
-    Inter_700Bold,
-    Inter_800ExtraBold,
-    Inter_900Black,
-  });
-
-  if (!loaded) {
+  if (!initialized) {
     return (
-      <View 
-        style={{ 
-          flex: 1, 
-          justifyContent: 'center', 
+      <View
+        style={{
+          flex: 1,
           alignItems: 'center',
-          backgroundColor: Colors.grayscale[900]
+          justifyContent: 'center',
+          backgroundColor: colors.background,
         }}
       >
-        <ActivityIndicator size="large" color={Colors.primary} />
+        <ActivityIndicator color={colors.primary} size="large" />
       </View>
     );
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Provider store={store}>
+    <NavigationThemeProvider value={isDark ? DarkTheme : DefaultTheme}>
+      <StatusBarProvider
+        defaultColor={colors.statusBar}
+        defaultIconStyle={isDark ? 'light' : 'dark'}
+      >
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <SafeAreaView 
-            style={{ flex: 1, backgroundColor: Colors.backgrounds.black }} 
-            edges={Platform.OS === 'ios' ? ['top'] : ['top', 'bottom']}
-          >
-            <AuthInitializer />
-            <ToastManager />
-          </SafeAreaView>
+          <SafeAreaProvider>
+            <SafeAreaView
+              style={{ flex: 1, backgroundColor: colors.background }}
+              edges={['top', 'left', 'right']}
+            >
+              <StatusBarBackground />
+              <Slot />
+            </SafeAreaView>
+          </SafeAreaProvider>
         </GestureHandlerRootView>
-      </Provider>
-    </ThemeProvider>
+      </StatusBarProvider>
+    </NavigationThemeProvider>
+  );
+};
+
+export default function RootLayout() {
+  const [fontsLoaded] = useFonts({
+    Outfit_300Light,
+    Outfit_400Regular,
+    Outfit_500Medium,
+    Outfit_600SemiBold,
+    Outfit_700Bold,
+  });
+
+  const colors = getThemeColors(false);
+
+  if (!fontsLoaded) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: colors.background,
+        }}
+      >
+        <ActivityIndicator color={colors.primary} size="large" />
+      </View>
+    );
+  }
+
+  return (
+    <Provider store={store}>
+      <ThemeProvider>
+        <AppShell />
+      </ThemeProvider>
+    </Provider>
   );
 }

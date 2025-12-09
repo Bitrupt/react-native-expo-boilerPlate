@@ -1,59 +1,44 @@
-// app/(tabs)/_layout.tsx - iOS FIXED VERSION
-
-import CustomTabBar from '@/components/CustomTabBar/CustomTabBar';
-import { Tabs } from 'expo-router';
 import React from 'react';
-import { View, Platform } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Tabs } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
-export default function TabLayout() {
-  const insets = useSafeAreaInsets();
-  
+import { getThemeColors } from '@/constants/Colors';
+import { useTheme } from '@/contexts/ThemeContext';
+
+export default function TabsLayout() {
+  const { isDark } = useTheme();
+  const colors = getThemeColors(isDark);
+
   return (
-    <View style={{ flex: 1 }}>
-      <Tabs
-        screenOptions={{
-          headerShown: false,
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.textSecondary,
+        tabBarStyle: {
+          backgroundColor: colors.surface,
+          borderTopColor: colors.border,
+        },
+      }}
+    >
+      <Tabs.Screen
+        name="home/index"
+        options={{
+          title: 'Home',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home-outline" size={size} color={color} />
+          ),
         }}
-        tabBar={(props) => (
-          <View style={{
-            paddingBottom: Platform.OS === 'ios' ? Math.max(insets.bottom, 10) : 0
-          }}>
-            <CustomTabBar {...props} />
-          </View>
-        )}
-      >
-        <Tabs.Screen 
-          name='home/index'
-          options={{
-            title: 'Home',
-          }}
-        />
-        <Tabs.Screen 
-          name='portfolio/index'
-          options={{
-            title: 'Portfolio',
-          }}
-        />
-        <Tabs.Screen 
-          name='rewards/index'
-          options={{
-            title: 'Rewards',
-          }}
-        />
-        <Tabs.Screen 
-          name='goals/index'
-          options={{
-            title: 'Goals',
-          }}
-        />
-        <Tabs.Screen 
-          name='profile/index'
-          options={{
-            title: 'Profile',
-          }}
-        />
-      </Tabs>
-    </View>
+      />
+      <Tabs.Screen
+        name="profile/index"
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person-circle-outline" size={size} color={color} />
+          ),
+        }}
+      />
+    </Tabs>
   );
 }

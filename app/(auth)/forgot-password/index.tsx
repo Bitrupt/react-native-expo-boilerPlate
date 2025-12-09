@@ -15,24 +15,23 @@ import { useTheme } from '@/contexts/ThemeContext';
 import { useStatusBarColor } from '@/hooks/useStatusBarColor';
 import styles from './styles';
 
-const SignupScreen = () => {
+const ForgotPasswordScreen = () => {
   const router = useRouter();
   const { isDark } = useTheme();
   const colors = getThemeColors(isDark);
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   useStatusBarColor({ screen: 'surface' });
 
-  const handleSignup = async () => {
-    if (!email || !password || !name) return;
+  const handleSubmit = async () => {
+    if (!email) return;
     setLoading(true);
-    // Replace with real signup call
+    // Replace with real password reset call
     setTimeout(() => {
       setLoading(false);
-      router.replace('/(auth)/login');
+      setSubmitted(true);
     }, 600);
   };
 
@@ -43,8 +42,10 @@ const SignupScreen = () => {
     >
       <View style={styles.header}>
         <View style={styles.headerText}>
-          <Text style={[styles.eyebrow, { color: colors.textSecondary }]}>Get started</Text>
-          <Text style={[styles.title, { color: colors.text }]}>Create account</Text>
+          <Text style={[styles.eyebrow, { color: colors.textSecondary }]}>
+            Account help
+          </Text>
+          <Text style={[styles.title, { color: colors.text }]}>Reset password</Text>
         </View>
         <TouchableOpacity onPress={() => router.replace('/(auth)/login')}>
           <Text style={[styles.link, { color: colors.primary }]}>Back to login</Text>
@@ -52,15 +53,6 @@ const SignupScreen = () => {
       </View>
 
       <View style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-        <Text style={[styles.label, { color: colors.textSecondary }]}>Name</Text>
-        <TextInput
-          placeholder="Jane Doe"
-          placeholderTextColor={colors.textSecondary}
-          style={[styles.input, { borderColor: colors.border, color: colors.text }]}
-          value={name}
-          onChangeText={setName}
-        />
-
         <Text style={[styles.label, { color: colors.textSecondary }]}>Email</Text>
         <TextInput
           placeholder="you@example.com"
@@ -72,21 +64,17 @@ const SignupScreen = () => {
           onChangeText={setEmail}
         />
 
-        <Text style={[styles.label, { color: colors.textSecondary }]}>Password</Text>
-        <TextInput
-          placeholder="••••••••"
-          placeholderTextColor={colors.textSecondary}
-          style={[styles.input, { borderColor: colors.border, color: colors.text }]}
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-        />
+        {submitted ? (
+          <Text style={[styles.success, { color: colors.success }]}>
+            Check your email for reset instructions.
+          </Text>
+        ) : null}
 
         <CustomButton
-          label="Create account"
-          onPress={handleSignup}
+          label="Send reset link"
+          onPress={handleSubmit}
           loading={loading}
-          disabled={!email || !password || !name}
+          disabled={!email}
           style={styles.cta}
         />
       </View>
@@ -94,4 +82,4 @@ const SignupScreen = () => {
   );
 };
 
-export default SignupScreen;
+export default ForgotPasswordScreen;

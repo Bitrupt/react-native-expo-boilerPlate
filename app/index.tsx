@@ -1,41 +1,38 @@
-// app/index.tsx - PROPER AUTH ROUTING
-
-import { useAuth } from '@/hooks/useAuth';
-import { Redirect } from 'expo-router';
 import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
-import { Colors } from '@/constants/Colors';
+import { Redirect } from 'expo-router';
+import { ActivityIndicator, View } from 'react-native';
 
-const AppIndex = () => {
-  const { 
-    isAuthInitializing,  // Use specific loading state for initialization
-    isAuthenticated, 
-  } = useAuth();
-  
-  // Show loading spinner only during auth initialization
-  if (isAuthInitializing) {
+import { getThemeColors } from '@/constants/Colors';
+import { useTheme } from '@/contexts/ThemeContext';
+import { useAuth } from '@/hooks/useAuth';
+
+// Set this flag to true/false to force navigation without relying on auth state.
+// When null, the real auth status from the store is used.
+const AUTH_OVERRIDE: boolean | null = null;
+
+const Index = () => {
+  const { isDark } = useTheme();
+  const colors = getThemeColors(isDark);
+  const { isAuthenticated, initialized } = useAuth();
+  const resolvedAuth =
+    typeof AUTH_OVERRIDE === 'boolean' ? AUTH_OVERRIDE : isAuthenticated;
+
+  if (!initialized) {
     return (
-      <View 
-        style={{ 
-          flex: 1, 
-          justifyContent: 'center', 
+      <View
+        style={{
+          flex: 1,
           alignItems: 'center',
-          backgroundColor: Colors.grayscale[900]
+          justifyContent: 'center',
+          backgroundColor: colors.background,
         }}
       >
-        <ActivityIndicator size="large" color={Colors.primary} />
+        <ActivityIndicator color={colors.primary} />
       </View>
     );
   }
-  
-  // Redirect based on authentication status
-  if (isAuthenticated) {
-    console.log('✅ User authenticated, navigating to main app');
-    return <Redirect href="/(tabs)/home" />;
-  } else {
-    console.log('❌ User not authenticated, navigating to onboarding');
-    return <Redirect href="/(auth)/onboarding" />;
-  }
+
+  return <Redirect href={resolvedAuth ? '/(tabs)/home' : '/(auth)/login'} />;
 };
 
-export default AppIndex;
+export default Index;

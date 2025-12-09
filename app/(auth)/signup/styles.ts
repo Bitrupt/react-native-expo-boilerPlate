@@ -1,118 +1,59 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '@/constants/Colors';
-import { wp, hp } from '@/hooks/screenPercentage';
+import { Fonts } from '@/constants/FontSizes';
 
-const styles = StyleSheet.create({
-  backgroundImage: {
-    flex: 1,
-    width: '100%',
-  },
-  
+export default StyleSheet.create({
   container: {
     flex: 1,
+    padding: 20,
+    gap: 24,
   },
-
-  content: {
-    flexGrow: 1,
-    paddingHorizontal: wp(6),
-    paddingVertical: hp(2.5),
+  header: {
+    flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    columnGap: 12,
+    rowGap: 12,
   },
-
-  formContainer: {
-    gap: wp(6),
-    marginTop: hp(2.5),
+  headerText: {
+    flex: 1,
+    minWidth: '65%',
   },
-
-  inputContainer: {
-    gap: wp(2),
+  eyebrow: {
+    fontFamily: Fonts.family.medium,
+    fontSize: Fonts.sizes.sm,
+    letterSpacing: 0.4,
+    textTransform: 'uppercase',
   },
-
-  inputLabel: {
-    fontSize: wp(3.5),
-    fontFamily: 'Inter_600SemiBold',
-    color: Colors.common.white,
+  title: {
+    fontFamily: Fonts.family.bold,
+    fontSize: Fonts.sizes.xl,
+    marginTop: 6,
   },
-
+  card: {
+    borderWidth: 1,
+    padding: 16,
+    borderRadius: 16,
+    gap: 12,
+  },
+  label: {
+    fontFamily: Fonts.family.medium,
+    fontSize: Fonts.sizes.sm,
+  },
   input: {
-    height: hp(8),
-    borderRadius: wp(3),
-    paddingHorizontal: wp(4),
-    fontSize: wp(4),
-    fontFamily: 'Inter_400Regular',
-    backgroundColor: Colors.grayscale[900],
-    color: Colors.common.white,
+    borderWidth: 1,
+    borderRadius: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    fontFamily: Fonts.family.regular,
+    fontSize: Fonts.sizes.md,
   },
-
-  passwordContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: Colors.grayscale[900],
-    borderRadius: wp(3),
+  cta: {
+    marginTop: 8,
+    alignSelf: 'flex-start',
   },
-
-  passwordInput: {
-    flex: 1,
-    height: hp(8),
-    paddingHorizontal: wp(4),
-    fontSize: wp(4),
-    fontFamily: 'Inter_400Regular',
-    color: Colors.common.white,
-  },
-
-  eyeIcon: {
-    padding: wp(3.8),
-  },
-
-  passwordStrengthContainer: {
-    marginTop: hp(1.5),
-    gap: wp(2),
-  },
-
-  strengthBars: {
-    flexDirection: 'row',
-    gap: wp(2),
-  },
-
-  strengthBar: {
-    flex: 1,
-    height: hp(0.5),
-    borderRadius: wp(0.5),
-  },
-
-  strengthText: {
-    fontSize: wp(2.8),
-    fontFamily: 'Inter_400Regular',
-    textAlign: 'left',
-  },
-
-  bottomSection: {
-    gap: wp(5),
-    marginTop: hp(5),
-    paddingBottom: hp(3),
-  },
-
-  signupButton: {
-    height: hp(6.2),
-  },
-
-  loginContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  loginText: {
-    fontSize: wp(3.5),
-    fontFamily: 'Inter_400Regular',
-    color: Colors.common.white,
-  },
-
-  loginLink: {
-    fontSize: wp(3.5),
-    fontFamily: 'Inter_600SemiBold',
-    color: Colors.primary,
+  link: {
+    fontFamily: Fonts.family.medium,
+    fontSize: Fonts.sizes.sm,
   },
 });
-
-export default styles;

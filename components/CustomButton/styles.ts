@@ -1,25 +1,26 @@
+// components/CustomButton/styles.ts
 import { StyleSheet } from 'react-native';
-import { theme } from '@/theme/theme';
+import { Fonts } from '@/constants/FontSizes';
+import { spacing } from '@/hooks/screenPercentage';
 
-const styles = StyleSheet.create({
+export default StyleSheet.create({
   button: {
-    height: theme.button.height,
-    borderRadius: theme.borderRadius.full,
-    justifyContent: 'center',
+    minHeight: 52,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.sm,
+    borderRadius: 14,
     alignItems: 'center',
+    justifyContent: 'center',
     flexDirection: 'row',
-    gap: theme.spacing.sm,
-    paddingHorizontal: theme.spacing.lg,
-    ...theme.shadow.sm,
+    borderWidth: 1,
   },
   text: {
-    fontSize: theme.fontSize.md,
-    fontFamily: 'Montserrat_600SemiBold',
-    textAlign: 'center',
+    fontFamily: Fonts.family.semiBold,
+    fontSize: Fonts.sizes.md,
   },
-  disabled: {
-    opacity: 0.6,
+  icon: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: spacing.xs,
   },
 });
-
-export default styles;
