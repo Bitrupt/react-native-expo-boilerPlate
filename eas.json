@@ -1,0 +1,46 @@
+{
+  "cli": {
+    "version": ">= 16.17.4",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "store"
+    },
+    "production": {
+      "autoIncrement": true,
+      "env": {
+        "APP_VARIANT": "production"
+      }
+    },
+    "dev": {
+      "autoIncrement": true,
+      "env": {
+        "APP_VARIANT": "dev"
+      },
+      "ios": {
+        "buildConfiguration": "ReleaseDev"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "matt@investwizz.co.uk",
+        "appleTeamId": "9JWLAL36JJ",
+        "ascAppId": "6751441486"
+      }
+    },
+    "dev": {
+      "ios": {
+        "appleId": "matt@investwizz.co.uk",
+        "appleTeamId": "9JWLAL36JJ",
+        "ascAppId": "6755527632"
+      }
+    }
+  }
+}
